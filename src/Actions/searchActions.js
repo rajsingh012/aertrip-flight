@@ -1,6 +1,6 @@
 import getSearchResult from "./../Connector/getSearchResult";
 import listingResponse from "./../Decorator/listingResponse";
-import applyPriceFilter from "./../Connector/applyPriceFilter";
+import getList from "./../Connector/applyPriceFilter";
 import Constants from "../Constants/actions";
 import * as R from "ramda";
 const then = R.curry((f, p) => p.then(f));
@@ -21,7 +21,7 @@ const applyFilter = (payload) => {
     const state = getState();
     const { flightListing = {} } = state,
       { masterList = [] } = flightListing;
-    const { list = [] } = await R.pipe(applyPriceFilter)({
+    const { list = [] } = await R.pipe(getList)({
       list: masterList,
       filterObj: payload,
     });

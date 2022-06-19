@@ -6,14 +6,18 @@ import { getFilghtList, applyFilter } from "../Actions/searchActions";
 class ListContainer extends Component {
   componentWillMount() {
     this.props.getFilghtList();
-    console.log("masterList");
   }
 
   render() {
-    const { fetching = false, masterList = [] } = this.props;
+    const { fetching = false, masterList = [], filterObj = {} } = this.props;
     return (
       <div className="listing_body">
-        <SearchList masterList={masterList} fetching={fetching} />
+        <SearchList
+          masterList={masterList}
+          fetching={fetching}
+          filterObj={filterObj}
+          applyFilter={this.props.applyFilter}
+        />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import { isEmptyObject } from "./../Utils/utils";
 
-const applyFilter = ({ list = [], filterObj = {} }) => {
+const getList = ({ list = [], filterObj = {} }) => {
   const { pr = {} } = filterObj;
   if (isEmptyObject(pr)) {
     return { list, filterObj };
@@ -13,4 +13,4 @@ const applyFilter = ({ list = [], filterObj = {} }) => {
   return { list: newList, filterObj };
 };
 
-export default applyFilter;
+export default getList;

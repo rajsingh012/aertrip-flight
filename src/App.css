@@ -137,7 +137,6 @@ p {
 .listing_body {
   display: flex;
   justify-content: space-between;
-  width: 80%;
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -154,4 +153,17 @@ p {
 
 .listingData {
   overflow-x: hidden !important;
+}
+.listing_filter {
+  display: flex;
+  width: 100%;
+}
+.rc_wrapper {
+  width: 20%;
+  padding: 20px;
+  box-shadow: 0 0 5px 0 rgb(0 0 0 / 12%);
+}
+.rc_content {
+  display: flex;
+  justify-content: space-between;
 }

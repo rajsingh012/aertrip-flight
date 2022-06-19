@@ -1,4 +1,4 @@
-const processFlightResult = (singleResult, flightInfo) => {
+const flightResult = (singleResult, flightInfo) => {
   const { qid = "", alMaster = {}, aldet = {} } = flightInfo,
     {
       vendor = "",
@@ -42,8 +42,9 @@ const processFlightResult = (singleResult, flightInfo) => {
   };
 };
 
-const mergeFilterObj = (list) => {
-  const [{ minPrice = 0, maxPrice = 0 } = {}] = list;
+const mergeObj = (list) => {
+  const [firstObj = {}, secObj = {}] = list;
+  const { minPrice = 0, maxPrice = 0 } = secObj;
   let _minPrice = minPrice,
     _maxPrice = maxPrice;
   list.forEach((filter) => {
@@ -60,24 +61,24 @@ const mergeFilterObj = (list) => {
 const formatListingResponse = (response) => {
   const { data = {} } = response,
     { flights = [] } = data;
-  const masterList = [],
-    filterList = [];
+  const masterList = [];
+  let filterList = [];
   flights.forEach((flight) => {
     const { results = {}, ...restFlightData } = flight,
       { f = [], j = [] } = results;
     j.forEach((result) => {
-      masterList.push(processFlightResult(result, restFlightData));
+      masterList.push(flightResult(result, restFlightData));
     });
     f.forEach((filter) => {
-      const { pr = {} } = filter,
-        { minPrice = 0, maxPrice = 0 } = pr;
+      const { pr = {} } = filter;
+      const { minPrice = 0, maxPrice = 0 } = pr;
       filterList.push({ minPrice, maxPrice });
     });
   });
   return {
     filterdList: masterList,
     masterList,
-    filterObj: mergeFilterObj(filterList),
+    filterObj: mergeObj(filterList),
   };
 };
 
